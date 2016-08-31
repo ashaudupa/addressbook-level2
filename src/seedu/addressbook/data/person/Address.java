@@ -8,9 +8,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, some street";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String EXAMPLE = "a/123, Clementi Ave 3, #12-34, 231534";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "ADDRESS should be in the format a/BLOCK, STREET, UNIT, POSTAL_CODE";
+    public static final String ADDRESS_VALIDATION_REGEX = ".+,.+,.+,.+";
 
     public final String value;
     private boolean isPrivate;
@@ -42,7 +42,8 @@ public class Address {
 
     @Override
     public String toString() {
-        return value;
+        //return value;
+        return joinAddress();
     }
 
     @Override
@@ -98,5 +99,17 @@ public class Address {
         public String getPostalCode() {
             return postalCode;
         }
+    }
+    public String joinAddress() {
+        Block b = new Block();
+        b.setBlockNumber();
+        Street s = new Street();
+        s.setStreetName();
+        Unit u = new Unit();
+        u.setUnitNumber();
+        PostalCode pc = new PostalCode();
+        pc.setPostalCode();
+        String[] alist = {b.getBlockNumber(),s.getStreetName(),u.getUnitNumber(),pc.getPostalCode()};
+        return String.join(",",alist);
     }
 }
