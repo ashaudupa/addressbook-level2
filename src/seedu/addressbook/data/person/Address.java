@@ -27,6 +27,10 @@ public class Address {
         }
         this.value = address;
     }
+    public String[] splitAddress() {
+        String[] addressSplit = value.split(",");
+        return addressSplit;
+    }
 
     /**
      * Returns true if a given string is a valid person email.
@@ -54,5 +58,22 @@ public class Address {
 
     public boolean isPrivate() {
         return isPrivate;
+    }
+    
+    public class Block {
+        private String blockNumber;
+        
+    }
+    public class Street {
+        private String streetName;
+        
+    }
+    public class Unit {
+        private String unitNumber;
+        
+    }
+    public class PostalCode {
+        private int postalCode;
+        
     }
 }
