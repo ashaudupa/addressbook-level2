@@ -72,6 +72,12 @@ public class Address {
     }
     public class Street {
         private String streetName;
+        public void setStreetName() {
+            streetName = splitAddress()[1];
+        }
+        public String getStreetName() {
+            return streetName;
+        }
         
     }
     public class Unit {
