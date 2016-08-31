@@ -25,6 +25,10 @@ public class CommandResult {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
     }
+  
+    public String getFeedbackToUser(){
+       return this.feedbackToUser; 
+    }
 
     /**
      * Returns list of persons relevant to the command command result, if any.
