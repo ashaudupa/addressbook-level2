@@ -29,6 +29,7 @@ public class Address {
     }
     public String[] splitAddress() {
         String[] addressSplit = value.split(",");
+        System.out.println(addressSplit);
         return addressSplit;
     }
 
@@ -62,7 +63,12 @@ public class Address {
     
     public class Block {
         private String blockNumber;
-        
+        public void setBlockNumber() {
+           blockNumber = splitAddress()[0]; 
+        }
+        public String getBlockNumber() {
+            return blockNumber;
+        }
     }
     public class Street {
         private String streetName;
