@@ -34,15 +34,17 @@ Format: `help`
  
 ### Adding a person: `add`
 Adds a person to the address book<br>
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...` 
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS
  
+>ADDRESS should be in the format a/BLOCK, STREET, UNIT, POSTAL_CODE
+e.g. a/123, Clementi Ave 3, #12-34, 231534 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 > 
 > Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 > be seen using the `viewall` command.
 > 
-> Persons can have any number of tags (including 0)
+#> Persons can have any number of tags (including 0)
 
 Examples: 
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
