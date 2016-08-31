@@ -29,7 +29,6 @@ public class Address {
     }
     public String[] splitAddress() {
         String[] addressSplit = value.split(",");
-        System.out.println(addressSplit);
         return addressSplit;
     }
 

@@ -37,7 +37,7 @@ Adds a person to the address book<br>
 Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS
  
 >ADDRESS should be in the format a/BLOCK, STREET, UNIT, POSTAL_CODE
-e.g. a/123, Clementi Ave 3, #12-34, 231534 
+>e.g. a/123, Clementi Ave 3, #12-34, 231534 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 > 
