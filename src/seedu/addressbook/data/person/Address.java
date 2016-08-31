@@ -15,6 +15,11 @@ public class Address {
     public final String value;
     private boolean isPrivate;
 
+    private Block block;
+    private Street street;
+    private Unit unit;
+    private PostalCode postalCode;
+    
     /**
      * Validates given address.
      *
@@ -26,6 +31,11 @@ public class Address {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = address;
+        String[] AddressComponents = splitAddress();
+        block = new Block(AddressComponents[0]);
+        street = new Street(AddressComponents[1]);
+        unit = new Unit(AddressComponents[2]);
+        postalCode = new PostalCode(AddressComponents[3]);
     }
     public String[] splitAddress() {
         String[] addressSplit = value.split(",");
@@ -61,54 +71,85 @@ public class Address {
         return isPrivate;
     }
     
-    public class Block {
+    class Block {
         private String blockNumber;
-        public void setBlockNumber() {
-           blockNumber = splitAddress()[0]; 
+        public Block(String block) {
+            blockNumber = block;
         }
-        public String getBlockNumber() {
+        public void setBlockNumber(String blockNo) {
+           blockNumber = blockNo;
+        }
+        @Override
+        public String toString() {
             return blockNumber;
         }
+        public String getBlockNumber() {
+            return toString();
+        }
     }
-    public class Street {
+    
+    class Street {
         private String streetName;
-        public void setStreetName() {
-            streetName = splitAddress()[1];
+        
+        public Street(String street) {
+            streetName = street;
+        }
+        public void setStreetName(String street) {
+            streetName = street;
+        }
+        
+        @Override
+        public String toString() {
+            return streetName;
+            
         }
         public String getStreetName() {
-            return streetName;
+            return toString();
         }
         
     }
     public class Unit {
         private String unitNumber;
-        public void setUnitNumber() {
-            unitNumber = splitAddress()[2];
+        
+        public Unit(String unit) {
+            unitNumber = unit;
+        }
+        public void setUnitNumber(String unitNo) {
+            unitNumber = unitNo;
+        }
+        
+        @Override
+        public String toString() {
+            return unitNumber;
         }
         public String getUnitNumber() {
-            return unitNumber;
+            return toString();
         }
         
     }
     public class PostalCode {
         private String postalCode;
-        public void setPostalCode() {
-            postalCode = splitAddress()[3];
+        
+        public PostalCode(String pin) {
+            postalCode = pin;
+        }
+        
+        public void setPostalCode(String pin) {
+            postalCode = pin;
+        }
+        
+        @Override
+        public String toString() {
+            return postalCode;
         }
         public String getPostalCode() {
-            return postalCode;
+            return toString();
         }
     }
     public String joinAddress() {
-        Block b = new Block();
-        b.setBlockNumber();
-        Street s = new Street();
-        s.setStreetName();
-        Unit u = new Unit();
-        u.setUnitNumber();
-        PostalCode pc = new PostalCode();
-        pc.setPostalCode();
-        String[] alist = {b.getBlockNumber(),s.getStreetName(),u.getUnitNumber(),pc.getPostalCode()};
+        String[] alist = {block.getBlockNumber(),street.getStreetName(),unit.getUnitNumber(),postalCode.getPostalCode()};
         return String.join(",",alist);
+        // using string builder
+        // using string concatenation
     }
 }
