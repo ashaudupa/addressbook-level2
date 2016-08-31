@@ -91,7 +91,12 @@ public class Address {
         
     }
     public class PostalCode {
-        private int postalCode;
-        
+        private String postalCode;
+        public void setPostalCode() {
+            postalCode = splitAddress()[3];
+        }
+        public String getPostalCode() {
+            return postalCode;
+        }
     }
 }
