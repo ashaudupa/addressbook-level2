@@ -82,6 +82,12 @@ public class Address {
     }
     public class Unit {
         private String unitNumber;
+        public void setUnitNumber() {
+            unitNumber = splitAddress()[2];
+        }
+        public String getUnitNumber() {
+            return unitNumber;
+        }
         
     }
     public class PostalCode {
