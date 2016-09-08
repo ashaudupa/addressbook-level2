@@ -8,7 +8,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -39,6 +41,11 @@ public class StorageFile {
      */
     public static class StorageOperationException extends Exception {
         public StorageOperationException(String message) {
+            super(message);
+        }
+    }
+    public static class FileNotFound extends Exception {
+        public FileNotFound(String message){
             super(message);
         }
     }
@@ -77,7 +84,10 @@ public class StorageFile {
     private static boolean isValidPath(Path filePath) {
         return filePath.toString().endsWith(".txt");
     }
-
+    
+    private static boolean isExists(Path filePath){
+        return Files.exists(filePath);
+    }
     /**
      * Saves all data to this storage file.
      *
@@ -88,6 +98,30 @@ public class StorageFile {
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
          */
+        try{
+        if(!isExists(path)){
+            throw new FileNotFound("File is removed between execution");
+        }
+        else{
+           try (final Writer fileWriter =
+                    new BufferedWriter(new FileWriter(path.toFile()))) {
+
+           final AdaptedAddressBook toSave = new AdaptedAddressBook(addressBook);
+           final Marshaller marshaller = jaxbContext.createMarshaller();
+           marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+           marshaller.marshal(toSave, fileWriter);
+
+       } catch (IOException ioe) {
+           throw new StorageOperationException("Error writing to file: " + path);
+       } catch (JAXBException jaxbe) {
+           throw new StorageOperationException("Error converting address book into storage format");
+       }
+            
+        }
+        }catch (FileNotFound fe){
+            System.out.println(fe);
+        }
+        /*
         try (final Writer fileWriter =
                      new BufferedWriter(new FileWriter(path.toFile()))) {
 
@@ -101,7 +135,12 @@ public class StorageFile {
         } catch (JAXBException jaxbe) {
             throw new StorageOperationException("Error converting address book into storage format");
         }
-    }
+        if(!isExists(path)){
+                throw new FileNotFound("File is deleted in between execution");
+                }*/
+       
+    }    
+        
 
     /**
      * Loads data from this storage file.
@@ -132,6 +171,7 @@ public class StorageFile {
             return empty;
 
         // other errors
+      
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
         } catch (JAXBException jaxbe) {
