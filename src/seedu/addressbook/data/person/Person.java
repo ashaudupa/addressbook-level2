@@ -62,6 +62,9 @@ public class Person implements ReadOnlyPerson {
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
+    /**
+     * if we change setTags to static method we have to use static tags.But we cannot change tags to static variable.
+     */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
