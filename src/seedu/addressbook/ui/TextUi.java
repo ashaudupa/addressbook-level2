@@ -1,10 +1,11 @@
 package seedu.addressbook.ui;
 
 import static seedu.addressbook.common.Messages.*;
-
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tagging;
+import seedu.addressbook.data.tag.TaggingList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -103,6 +104,14 @@ public class TextUi {
 
     public void showGoodbyeMessage() {
         showToUser(MESSAGE_GOODBYE, DIVIDER, DIVIDER);
+    }
+    
+    public void showTaggingListToUser(TaggingList Taggings) {
+        ArrayList<Tagging> allTaggings = new ArrayList<Tagging>();
+        for (Tagging t :allTaggings){
+            System.out.println(String.format("%s %s [%s]",t.getSignForTagging(),t.getName(),t.getTag().tagName));
+        }
+        
     }
 
 
