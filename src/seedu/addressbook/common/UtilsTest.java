@@ -2,6 +2,8 @@ package seedu.addressbook.common;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.*;
 
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -30,8 +32,8 @@ public class UtilsTest {
     
     @Before
     public void setup() throws IllegalValueException {
-        person1Name = new Name("Test person 1");
-        person2Name = new Name("Test person 2");
+        person1Name = new Name("Test person one");
+        person2Name = new Name("Test person two");
         person1Phone = new Phone("34568732",false);
         person2Phone = new Phone("22334455",true);
         person1Email = new Email("abc@gmail.com",false);
@@ -45,21 +47,49 @@ public class UtilsTest {
     
     @Test
     public void isAnyNull_AllNull_Returns_True() {
-        assertNull(Utils.isAnyNull(nullName,nullPhone,nullEmail,nullAddress));
+        assertTrue(Utils.isAnyNull(nullName,nullPhone,nullEmail,nullAddress));
         
     }
     
     @Test
     public void isAnyNull_NoNull_Returns_False() {
-        assertNotNull(Utils.isAnyNull(person1, person2Email));
+        assertFalse(Utils.isAnyNull(person1, person2Email));
         
     }
     
     @Test
     public void isAnyNull_oneNull_Returns_True() {
-        assertNull(Utils.isAnyNull(person1,person2,nullName));
+        assertTrue(Utils.isAnyNull(person1,person2,nullName));
         
     }
     
+    @Test 
+    public void isAnyNull_noObject_false_Returned() {
+        assertFalse(Utils.isAnyNull());
+    }
+    
+    @Test
+    public void elementsAreUnique_duplicateValues_falseReturned() {
+        ArrayList <Person> personList = new ArrayList<Person>();
+        personList.add(person1);
+        personList.add(person1);
+        assertFalse(Utils.elementsAreUnique(personList));
+        personList.add(person2);
+        assertFalse(Utils.elementsAreUnique(personList));
+    }
+    
+    @Test
+    public void elementsAreUnique_nonRepeatedValues_TrueReturned() {
+        ArrayList <Person> personList = new ArrayList<Person>();
+        personList.add(person1);
+        personList.add(person2);
+        assertTrue(Utils.elementsAreUnique(personList));
+    }
+    
+    @Test
+    public void elementsAreUnique_EmptyList_TrueReturned() {
+        ArrayList <Person> personList = new ArrayList<Person>();
+        assertTrue(Utils.elementsAreUnique(personList));
+    }
 
 }
