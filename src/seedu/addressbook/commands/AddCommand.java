@@ -1,8 +1,10 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.tag.Tagging;
 import seedu.addressbook.data.tag.UniqueTagList;
 
 import java.util.HashSet;
@@ -47,11 +49,23 @@ public class AddCommand extends Command {
                 new Address(address, isAddressPrivate),
                 new UniqueTagList(tagSet)
         );
+        for (Tag tag : tagSet) {
+            Tagging associatedTag = new Tagging(this.toAdd,tag,true);
+            AddressBook.tagList.add(associatedTag);
+            
+        }
+       
     }
 
     public AddCommand(Person toAdd) {
         this.toAdd = toAdd;
+        UniqueTagList tagList = toAdd.getTags();
+        for(Tag tag:tagList) {
+            Tagging associatedTag = new Tagging(toAdd,tag,true);
+            AddressBook.tagList.add(associatedTag);        }
+        
     }
+    
 
     public ReadOnlyPerson getPerson() {
         return toAdd;

@@ -106,13 +106,7 @@ public class TextUi {
         showToUser(MESSAGE_GOODBYE, DIVIDER, DIVIDER);
     }
     
-    public void showTaggingListToUser(TaggingList Taggings) {
-        ArrayList<Tagging> allTaggings = new ArrayList<Tagging>();
-        for (Tagging t :allTaggings){
-            System.out.println(String.format("%s %s [%s]",t.getSignForTagging(),t.getName(),t.getTag().tagName));
-        }
-        
-    }
+
 
 
     public void showInitFailedMessage() {

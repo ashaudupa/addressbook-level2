@@ -2,11 +2,13 @@ package seedu.addressbook.data;
 
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.person.UniquePersonList.*;
+import seedu.addressbook.data.tag.Tagging;
 import seedu.addressbook.data.tag.TaggingList;
 import seedu.addressbook.data.tag.UniqueTagList;
 import seedu.addressbook.data.tag.UniqueTagList.*;
 import seedu.addressbook.data.tag.Tag;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class AddressBook {
 
     private final UniquePersonList allPersons;
     private final UniqueTagList allTags; // can contain tags not attached to any person
-    private final TaggingList allTaggings;
+    public static ArrayList<Tagging>tagList;
 
     /**
      * Creates an empty address book.
@@ -31,7 +33,7 @@ public class AddressBook {
     public AddressBook() {
         allPersons = new UniquePersonList();
         allTags = new UniqueTagList();
-        allTaggings = new TaggingList();
+        tagList = new ArrayList<Tagging>();
     }
 
     /**
@@ -47,7 +49,6 @@ public class AddressBook {
         for (Person p : allPersons) {
             syncTagsWithMasterList(p);
         }
-        this.allTaggings = new TaggingList();
     }
 
     /**
@@ -90,9 +91,8 @@ public class AddressBook {
      *
      * @throws DuplicateTagException if an equivalent tag already exists.
      */
-    public void addTag(Tag toAdd,String name) throws DuplicateTagException {
+    public void addTag(Person p,Tag toAdd) throws DuplicateTagException {
         allTags.add(toAdd);
-        allTaggings.addAddTagging(name, toAdd);
     }
 
     /**
@@ -123,9 +123,8 @@ public class AddressBook {
      *
      * @throws TagNotFoundException if no such Tag could be found.
      */
-    public void removeTag(Tag toRemove ,String name) throws TagNotFoundException {
+    public void removeTag(Tag toRemove ,Person p) throws TagNotFoundException {
         allTags.remove(toRemove);
-        allTaggings.addDeleteTagging(name, toRemove);
     }
 
     /**
@@ -134,7 +133,6 @@ public class AddressBook {
     public void clear() {
         allPersons.clear();
         allTags.clear();
-        allTaggings.clear();
     }
 
     /**
@@ -151,7 +149,17 @@ public class AddressBook {
         return new UniqueTagList(allTags);
     }
     
-    public TaggingList getAllTaggings() {
-        return allTaggings;
+    public static String getTagsModifiedInThisSession() {
+        StringBuilder builder = new StringBuilder();
+        
+        for(Tagging tag:tagList) {
+            builder.append(tag.getTag());
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+    
+    public static void clearTagModified(){
+        tagList.clear();
     }
 }
