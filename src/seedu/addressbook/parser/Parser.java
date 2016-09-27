@@ -74,12 +74,16 @@ public class Parser {
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
+                
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();    
 
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
 
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
+                
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -179,7 +183,7 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
     }
-
+    
     /**
      * Parses arguments in the context of the view all command.
      *
